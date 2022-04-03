@@ -1,0 +1,19 @@
+.button {
+  display: block;
+  width: 300px;
+  margin: 0 auto;
+  padding: 14px;
+  border: 0;
+  background-color: #0b0e21;
+  color: #fff;
+  font-weight: 600;
+  font-size: 18px;
+  text-transform: uppercase;
+  text-align: center;
+  cursor: pointer;
+  transition: opacity 300ms;
+
+  &:hover {
+    opacity: .7;
+  }
+}
