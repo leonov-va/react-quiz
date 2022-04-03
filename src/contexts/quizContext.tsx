@@ -1,11 +1,17 @@
 import { createContext, useReducer } from "react";
 import { normalizeQuestions, shuffleAnswers } from "../helpers";
 
+export type QuestionType = {
+  correctAnswer: string;
+  incorrectAnswers: string[];
+  question: string;
+};
+
 interface QuizContext {
-  questions: any[];
+  questions: QuestionType[];
   currentQuestionIndex: number;
   showResults: boolean;
-  answers: any[];
+  answers: string[];
   currentAnswer: string;
   correctAnswersCount: number;
 }
@@ -25,6 +31,7 @@ type ActionsMap = {
   NEXT_QUESTION: null;
   RESTART: null;
   SELECT_ANSWER: string;
+  LOADED_QUESTIONS: any[];
 };
 
 type Actions = {
@@ -34,9 +41,9 @@ type Actions = {
   };
 }[keyof ActionsMap];
 
-// ##########################################
+// ########################################## Quiz Reducer
 
-const quizReducer = (state: QuizContext, action: any): QuizContext => {
+const quizReducer = (state: QuizContext, action: Actions): QuizContext => {
   switch (action.type) {
     case "SELECT_ANSWER": {
       const correctAnswersCount =
@@ -87,14 +94,14 @@ const quizReducer = (state: QuizContext, action: any): QuizContext => {
   }
 };
 
-// ##########################################
+// ########################################## Create Context
 
 const QuizContext = createContext<{
   quizState: QuizContext;
   dispatch: React.Dispatch<any>;
 }>({ quizState: initialState, dispatch: () => null });
 
-// ##########################################
+// ########################################## QuizContext Provider
 
 const QuizProvider: React.FC = ({ children }) => {
   const [quizState, dispatch] = useReducer(quizReducer, initialState);

@@ -14,7 +14,7 @@ const LETTER_MAPPING: string[] = ["A", "B", "C", "D"];
 const Answer: React.FC<IAnswer> = React.memo((props) => {
   const { answerText, index, correctAnswer, currentAnswer, onSelectAnswer } =
     props;
-    
+
   const isCorrectAnswer = currentAnswer && answerText === correctAnswer;
   const isWrongAnswer =
     currentAnswer === answerText && currentAnswer !== correctAnswer;

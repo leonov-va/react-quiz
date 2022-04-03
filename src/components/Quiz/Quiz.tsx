@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from "react";
-import { QuizContext } from "../../contexts/quiz";
+import { QuizContext } from "../../contexts/quizContext";
 import Congratulations from "../Congratulations/Congratulations";
+import Loader from "../Loader/Loader";
 import Question from "../Question/Question";
 import Button from "../UI/Button/Button";
 import "./Quiz.scss";
@@ -25,8 +26,9 @@ const Quiz: React.FC = () => {
 
   return (
     <div className="quiz">
-      {quizState.showResults ? <Congratulations /> : null}
-      {!quizState.showResults && quizState.questions.length > 0 ? (
+      {quizState.showResults ? (
+        <Congratulations />
+      ) : quizState.questions.length ? (
         <>
           <div className="quiz__score">
             Question {quizState.currentQuestionIndex + 1}/
@@ -40,7 +42,9 @@ const Quiz: React.FC = () => {
             Next question
           </Button>
         </>
-      ) : null}
+      ) : (
+        <Loader />
+      )}
     </div>
   );
 };

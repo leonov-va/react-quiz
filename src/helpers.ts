@@ -1,4 +1,12 @@
-export const shuffleAnswers = (question: any) => {
+import { QuestionType } from "./contexts/quizContext";
+
+/**
+ * Shuffle answers
+ * @param question - QuestionType
+ * @returns Array of Shuffled Responses
+ */
+
+export const shuffleAnswers = (question: QuestionType): string[] => {
   const unshuffledAnswers = [
     question.correctAnswer,
     ...question.incorrectAnswers,
@@ -13,7 +21,13 @@ export const shuffleAnswers = (question: any) => {
     .map((a) => a.value);
 };
 
-export const normalizeQuestions = (backendQuestions: any) => {
+/**
+ * Normalize questions
+ * @param backendQuestions
+ * @returns Cast questions to QuestionType type
+ */
+
+export const normalizeQuestions = (backendQuestions: any[]) => {
   return backendQuestions.map((backendQuestion: any) => {
     const incorrectAnswers: string[] = backendQuestion.incorrect_answers.map(
       (incorrectAnswer: string) => decodeURIComponent(incorrectAnswer)

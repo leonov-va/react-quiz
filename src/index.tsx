@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import Quiz from "./components/Quiz/Quiz";
-import { QuizProvider } from "./contexts/quiz";
+import { QuizProvider } from "./contexts/quizContext";
 import "./index.css";
 
 const root = ReactDOM.createRoot(

@@ -26,6 +26,7 @@
     background-color: #752cbd;
     color: #fff;
     font-size: 30px;
+    transition: background-color 300ms;
 
     .answer--correct & {
       background-color: #1ea55b;
