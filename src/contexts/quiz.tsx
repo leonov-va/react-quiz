@@ -1,6 +1,5 @@
 import { createContext, useReducer } from "react";
-import questions from "../fixtures/quiz";
-import { shuffleAnswers } from "../helpers";
+import { normalizeQuestions, shuffleAnswers } from "../helpers";
 
 interface QuizContext {
   questions: any[];
@@ -12,10 +11,10 @@ interface QuizContext {
 }
 
 const initialState: QuizContext = {
-  questions,
+  questions: [],
   currentQuestionIndex: 0,
   showResults: false,
-  answers: shuffleAnswers(questions[0]),
+  answers: [],
   currentAnswer: "",
   correctAnswersCount: 0,
 };
@@ -72,6 +71,15 @@ const quizReducer = (state: QuizContext, action: any): QuizContext => {
     }
     case "RESTART": {
       return initialState;
+    }
+    case "LOADED_QUESTIONS": {
+      const normalizedQuestions = normalizeQuestions(action.payload);
+
+      return {
+        ...state,
+        questions: normalizedQuestions,
+        answers: shuffleAnswers(normalizedQuestions[0]),
+      };
     }
     default: {
       return state;

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { QuizContext } from "../../contexts/quiz";
 import Congratulations from "../Congratulations/Congratulations";
 import Question from "../Question/Question";
@@ -7,12 +7,26 @@ import "./Quiz.scss";
 
 const Quiz: React.FC = () => {
   const { quizState, dispatch } = useContext(QuizContext);
+  const apiUrl =
+    "https://opentdb.com/api.php?amount=10&category=21&difficulty=easy&type=multiple&encode=url3986";
+
+  useEffect(() => {
+    if (quizState.questions.length > 0) {
+      return;
+    }
+
+    fetch(apiUrl)
+      .then((res) => res.json())
+      .then((data) =>
+        dispatch({ type: "LOADED_QUESTIONS", payload: data.results })
+      )
+      .catch((err) => console.error(err));
+  });
 
   return (
     <div className="quiz">
-      {quizState.showResults ? (
-        <Congratulations />
-      ) : (
+      {quizState.showResults ? <Congratulations /> : null}
+      {!quizState.showResults && quizState.questions.length > 0 ? (
         <>
           <div className="quiz__score">
             Question {quizState.currentQuestionIndex + 1}/
@@ -26,7 +40,7 @@ const Quiz: React.FC = () => {
             Next question
           </Button>
         </>
-      )}
+      ) : null}
     </div>
   );
 };
