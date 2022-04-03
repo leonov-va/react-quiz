@@ -1,5 +1,6 @@
 {
   "name": "react-quiz-example",
+  "homepage": "https://leonov-va.github.io/react-quiz-example",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -15,13 +16,16 @@
     "react-scripts": "5.0.0",
     "sass": "^1.49.11",
     "typescript": "^4.6.3",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "gh-pages": "^3.2.3"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "react-scripts build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
